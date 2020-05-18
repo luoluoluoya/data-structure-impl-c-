@@ -144,20 +144,18 @@ Rank Vector<T>::find(T const &e, Rank lo, Rank hi) const {
 template<typename T>
 Rank Vector<T>::search(T const &e, Rank lo, Rank hi) const {
     Rank mi;
-    while (lo < hi) {
+    while ( 1 < hi - lo ) {
         mi = (lo + hi) >> 1;
-        e < _elem[mi] ? (hi = mi) : (lo = mi + 1);
+        (e < _elem[mi]) ? (hi = mi) : (lo = mi + 1);
     }
-    return lo;
+    return (_elem[lo] == e) ? lo : -1;
 }
-
 
 // 重载下标操作符，可以类似于数组形式引用各元素
 template<typename T>
 T & Vector<T>::operator[](Rank r) const {
     return _elem[r];
 }
-
 
 // 重载赋值操作符，以便直接克隆向量
 template<typename T>
@@ -166,7 +164,6 @@ Vector<T> & Vector<T>::operator=(Vector<T> const & V) {
     for (int i = 0; i < V._size; _elem[_size++] = V._elem[i++]);
     return *this;
 }
-
 
 // 删除秩为r的元素
 template<typename T>
