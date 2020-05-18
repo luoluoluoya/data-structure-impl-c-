@@ -134,4 +134,4 @@ public:
     void traverse(VST &);           //遍历（使用函数对象，可全局性修改）
 };
 
-#include "vector_implementation.h"
+#include "vector.cpp"
