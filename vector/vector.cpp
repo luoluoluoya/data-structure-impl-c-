@@ -78,9 +78,9 @@ void Vector<T>::merge(Rank lo, Rank mi, Rank hi) {
     int lb = mi - lo; T* B = new T[lb]; //前子向量B[0, lb) = _elem[lo, mi)
     for ( Rank i = 0; i < lb; B[i] = A[i++] ); //复制前子向量
     int lc = hi - mi; T* C = _elem + mi; //后子向量C[0, lc) = _elem[mi, hi)
-    for ( Rank i = 0, j = 0, k = 0; j < lb; ) { //将B[j]和C[k]中的小者续至A末尾
-        if ( ( k < lc ) &&                ( C[k] <  B[j] )   ) A[i++] = C[k++];
-        if (               ( lc <= k ) || ( B[j] <= C[k] )   ) A[i++] = B[j++];
+    for ( Rank i = 0, j = 0, k = 0; j < lb; ) { // 将B[j]和C[k]中的小者续至A末尾
+        if ( ( k < lc ) && ( C[k] <  B[j] ) )   A[i++] = C[k++];
+        if ( ( lc <= k ) || ( B[j] <= C[k] ) )  A[i++] = B[j++];
     }
     delete [] B; //释放临时空间B
 }
