@@ -3,7 +3,6 @@
 //
 
 #include "binnode_macro.h"
-#include "../share/tool.h"
 #include "../queue/queue.h"
 #include "../stack/stack.h"
 
@@ -27,7 +26,7 @@ BinNodePosi(T) BinNode<T>::insertAsLC(T const &e) {
 //作为当前节点的右孩子插入新节点
 // 前置条件：右孩子不存在
 template<typename T>
-BinNodePosi(T) BinNode<T>::insertAsRC(T const &) {
+BinNodePosi(T) BinNode<T>::insertAsRC(T const &e) {
     return rc = new BinNode<T>(e, this);
 }
 
@@ -64,9 +63,9 @@ template<typename T>
 template<typename VST>
 void BinNode<T>::travPre(VST &visit) {
     switch ( rand() % 3 ) {
-        case 1:     travPreI1 ( this, visit ); break; //迭代版#1
-        case 2:     travPreI2 ( this, visit ); break; //迭代版#2
-        default:    travPreR ( this, visit ); break; //递归版
+        case 0:     travPreI1 ( this, visit ); break; //迭代版#1
+        case 1:     travPreI2 ( this, visit ); break; //迭代版#2
+        default:     travPreR ( this, visit ); break; //递归版
     }
 }
 
@@ -93,7 +92,7 @@ static void travPreI2(BinNodePosi(T)p, VST &visit) {
             S.push(p->rc);
             p = p->lc;
         }
-        if (!S.empty()) break;
+        if (S.empty()) break;
         p = S.pop();
     }
 }
@@ -102,10 +101,9 @@ static void travPreI2(BinNodePosi(T)p, VST &visit) {
 template<typename T, typename VST>
 static void travPreR(BinNodePosi(T)p, VST &visit) {
     visit(p->data);
-    if ( HasLChild(*p) )    travPreR(p->lc);
-    if ( HasLChild(*p) )    travPreR(p->rc);
+    if ( HasLChild(*p) )    travPreR(p->lc, visit);
+    if ( HasLChild(*p) )    travPreR(p->rc, visit);
 }
-
 
 //子树中序遍历统一入口
 template<typename T>
@@ -189,9 +187,9 @@ static void travInI4(BinNodePosi(T)p, VST &visit) {
 template<typename T, typename VST>
 static void travInR(BinNodePosi(T)p, VST &visit) {
     if (!p) return;
-    travInR(p->lc);
+    travInR(p->lc, visit);
     visit(p->data);
-    travInR(p->rc);
+    travInR(p->rc, visit);
 }
 
 //子树后序遍历统一入口
@@ -231,8 +229,8 @@ void travPostI (BinNodePosi(T) x, VST& visit) {
 template<typename T, typename VST>
 static void travPostR(BinNodePosi(T)p, VST &visit) {
     if (!p) return;
-    travPostR(p->lc);
-    travPostR(p->rc);
+    travPostR(p->lc, visit);
+    travPostR(p->rc, visit);
     visit(p->data);
 }
 
