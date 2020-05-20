@@ -14,12 +14,10 @@
  */
 template<typename T>
 class BinTree {
-
-private:
+protected:
     int _size;  // 规模
     BinNodePosi(T)_root; // 根节点
 
-protected:
     virtual int updateHeight(BinNodePosi(T)x);  //更新节点x的高度
     void updateHeightAbove(BinNodePosi(T)x);    //更新节点x及其祖先的高度
 
