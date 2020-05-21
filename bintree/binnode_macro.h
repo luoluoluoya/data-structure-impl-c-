@@ -22,21 +22,12 @@
 #define FromParentTo(x) ( IsRoot(x) ? _root : ( IsLChild(x) ? (x).parent->lc : (x).parent->rc ) )
 
 
-/**AVL树宏定义**/
-#define HeightUpdated(x)    ( (x).height = 1 + max( stature( (x).lc ), stature( (x).rc ) )  )
-//理想平衡条件
-#define Balanced(x)         ( (x).lc.height == (x).rc.height )
-//平衡因子
-#define BalFac(x)           ( (x).lc.height - (x).rc.height )
-//AVL平衡条件
-#define AvlBalanced(x)      ( (-2 < BalFac(x)) && (BalFac(x) < 2) )
-
-
 /**红黑树宏定义**/
 //外部节点也视作黑节点
 #define IsBlack(p) ( ! (p) || ( RB_BLACK == (p)->color ) )
 //非黑即红
 #define IsRed(p) ( ! IsBlack(p) )
+
 //RedBlack高度更新条件
 #define BlackHeightUpdated(x) ( \
    ( stature( (x).lc ) == stature( (x).rc ) ) && \
