@@ -13,7 +13,7 @@
 template<typename T>
 class Stack: public List<T> {
 public:
-    void push(T const & e) { List<T>::insertAsLast(e); }
-    T pop() { return List<T>::remove( List<T>::last() ); }
-    T &top() { return List<T>::last()->data; }
+    void push(T const & e) { this->insertAsLast(e); }
+    T pop() { return this->remove( this->last() ); }
+    T &top() { return this->last()->data; }
 };

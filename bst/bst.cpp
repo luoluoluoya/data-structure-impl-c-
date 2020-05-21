@@ -44,19 +44,19 @@ BinNodePosi(T)BST<T>::connect34(
     if (T0) T0->parent = a;
     a->rc = T1;
     if (T1) T1->parent = a;
-    BinTree<T>::updateHeight(a);
+    this->updateHeight(a);
 
     c->lc = T2;
     if (T2) T2->parent = c;
     c->rc = T3;
     if (T3) T3->parent = c;
-    BinTree<T>::updateHeight(c);
+    this->updateHeight(c);
 
     b->lc = a;
     a->parent = a;
     b->rc = c;
     c->parent = a;
-    BinTree<T>::updateHeight(b);
+    this->updateHeight(b);
 
     return b;
 }
@@ -93,7 +93,7 @@ BinNodePosi(T)BST<T>::rotateAt(BinNodePosi(T)v) {
 // 平衡二叉搜树的查找
 template<typename T>
 BinNodePosi(T)&BST<T>::search(const T &e) {
-    return searchIn(BinTree<T>::_root, e, _hot = NULL);
+    return searchIn(this->_root, e, _hot = NULL);
 }
 
 //节点v（或假想的通配哨兵）的关键码等于e
@@ -115,8 +115,8 @@ static BinNodePosi(T) & searchIn ( BinNodePosi(T) & v, const T& e, BinNodePosi(T
 template <typename T> BinNodePosi(T) BST<T>::insert ( const T& e ) {
     BinNodePosi(T) & x = search ( e ); if ( x ) return x; //确认目标不存在（留意对_hot的设置）
     x = new BinNode<T> ( e, _hot ); //创建新节点x：以e为关键码，以_hot为父
-    BinTree<T>::_size++; //更新全树规模
-    BinTree<T>::updateHeightAbove ( x ); //更新x及其历代祖先的高度
+    this->_size++; //更新全树规模
+    this->updateHeightAbove ( x ); //更新x及其历代祖先的高度
     return x; //新插入的节点，必为叶子
 }
 
@@ -126,7 +126,7 @@ bool BST<T>::remove(const T &e) {
     BinNodePosi(T)&x = search(e);
     if (!x) return false;  //确认目标存在（留意_hot的设置）
     removeAt(x);
-    BinTree<T>::_size--;  //实施删除
-    BinTree<T>::updateHeightAbove(_hot);                 //更新_hot及其历代祖先的高度
+    this->_size--;  //实施删除
+    this->updateHeightAbove(_hot);                 //更新_hot及其历代祖先的高度
     return true;
 }
