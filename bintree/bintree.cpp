@@ -4,21 +4,17 @@
 
 #include "../share/tool.h"
 
-//更新节点x的高度
-template<typename T>
-int BinTree<T>::updateHeight(BinNodePosi(T)x) {
-    return x->height = ( 1 + max(stature(x->lc),  stature(x->rc)) );
+//更新节点x高度
+//具体规则，因树而异
+template <typename T> int BinTree<T>::updateHeight ( BinNodePosi(T) x ) {
+    return x->height = 1 + max ( stature ( x->lc ), stature ( x->rc ) );
 }
 
-//更新节点x及其祖先的高度
-//当某一节点的高度在更新前后不发生变化时， 终止高度更新的向上传播
-template<typename T>
-void BinTree<T>::updateHeightAbove(BinNodePosi(T)x) {
-    while (x) {
-        int hx = x->height;
-        if (updateHeight(x) == hx) break;
-        x = x->parent;
-    }
+//更新高度
+//从x出发，覆盖历代祖先
+template <typename T>
+void BinTree<T>::updateHeightAbove ( BinNodePosi(T) x ) {
+    while ( x ) { updateHeight ( x ); x = x->parent; }
 }
 
 //插入根节点
