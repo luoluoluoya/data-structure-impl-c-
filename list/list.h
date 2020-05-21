@@ -95,13 +95,13 @@ public:
 
     /**可写访问接口**/
     //将e当作首节点插入
-    ListNodePosi(T)insertAsFirst(T const &e) { _size++; header->insertAsSucc(e); }
+    ListNodePosi(T)insertAsFirst(T const &e) { _size++; return header->insertAsSucc(e); }
     //将e当作末节点插入
-    ListNodePosi(T)insertAsLast(T const &e) { _size++; trailer->insertAsPred(e); }
+    ListNodePosi(T)insertAsLast(T const &e) { _size++; return trailer->insertAsPred(e); }
     //将e当作p的后继插入
-    ListNodePosi(T)insertA(ListNodePosi(T)p, T const &e) { _size++; p->insertAsSucc(e); }
+    ListNodePosi(T)insertA(ListNodePosi(T)p, T const &e) { _size++; return p->insertAsSucc(e); }
     //将e当作p的前驱插入
-    ListNodePosi(T)insertB(ListNodePosi(T)p, T const &e) { _size++; p->insertAsPred(e); }
+    ListNodePosi(T)insertB(ListNodePosi(T)p, T const &e) { _size++; return p->insertAsPred(e); }
 
     //删除合法位置p处的节点,返回被删除节点
     T remove(ListNodePosi(T)p);

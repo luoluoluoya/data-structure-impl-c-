@@ -15,7 +15,7 @@ protected:
     BinNodePosi(T)_hot;
 
     //按照“3 + 4”结构，联接3个节点及四棵子树
-    BinNodePosi(T) connect34(
+    BinNodePosi(T)connect34(
             BinNodePosi(T), BinNodePosi(T), BinNodePosi(T),
             BinNodePosi(T), BinNodePosi(T), BinNodePosi(T), BinNodePosi(T));
 
