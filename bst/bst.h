@@ -11,6 +11,8 @@ template<typename T>
 class BST : public BinTree<T> {
 
 protected:
+    BinNodePosi(T) &searchIn ( BinNodePosi(T) & v, const T& e, BinNodePosi(T) & hot );
+
     //“命中”节点的父亲
     BinNodePosi(T)_hot;
 

@@ -102,7 +102,7 @@ BinNodePosi(T)&BST<T>::search(const T &e) {
 //在以v为根的（AVL、SPLAY、rbTree等）BST子树中查找关键码e
 //返回时，返回值指向命中节点（或假想的通配哨兵），hot指向其父亲（退化时为初始值NULL）
 template <typename T>
-static BinNodePosi(T) & searchIn ( BinNodePosi(T) & v, const T& e, BinNodePosi(T) & hot ) {
+BinNodePosi(T) & BST<T>::searchIn ( BinNodePosi(T) & v, const T& e, BinNodePosi(T) & hot ) {
     if ( EQUAL ( e, v ) ) return v; hot = v; //退化情况：在子树根节点v处命中
     while ( 1 ) {
         BinNodePosi(T) & c = ( e < hot->data ) ? hot->lc : hot->rc;
