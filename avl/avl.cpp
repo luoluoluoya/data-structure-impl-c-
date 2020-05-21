@@ -9,7 +9,7 @@
 //从_hot出发向上，逐层检查各代祖先g, 一旦发现g失衡，则（采用“3 + 4”算法）使之复衡，并将该子树重新接入原树, g复衡后，局部子树高度必然复原；其祖先亦必如此，故调整随即结束
 template<typename T>
 BinNodePosi(T) AVL<T>::insert(const T &e) {
-    BinNodePosi(T) x = this->search(e); if (x) return x;
+    BinNodePosi(T) x = this->search(e); if (x) return x;    // todo  search未返回引用？
     BinNodePosi(T) xx = x = new BinNode<T>(e, this->_hot); this->_size++;
     for (BinNodePosi(T) g = this->_hot; g; g = g->parent) {
         if ( !Balanced(*g) ) {

@@ -19,10 +19,6 @@ public:
 
     //É¾³ý£¨ÖØÐ´£©
     bool remove(const T &e);
-
-    BinNodePosi(T)&search(const T &e) {
-
-    }
 };
 
 #include "avl.cpp"
