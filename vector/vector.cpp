@@ -139,16 +139,14 @@ Rank Vector<T>::find(T const &e, Rank lo, Rank hi) const {
     return hi - 1;
 }
 
-
-// 有序向量区间查找
-template<typename T>
-Rank Vector<T>::search(T const &e, Rank lo, Rank hi) const {
-    Rank mi;
-    while ( 1 < hi - lo ) {
-        mi = (lo + hi) >> 1;
-        (e < _elem[mi]) ? (hi = mi) : (lo = mi + 1);
-    }
-    return (_elem[lo] == e) ? lo : -1;
+//在有序向量的区间[lo, hi)内，确定不大于e的最后一个节点的秩
+template <typename T>
+Rank Vector<T>::search ( T const& e, Rank lo, Rank hi ) const {
+    while ( lo < hi ) { //每步迭代仅需做一次比较判断，有两个分支
+        Rank mi = ( lo + hi ) >> 1; //以中点为轴点
+        ( e < _elem[mi] ) ? hi = mi : lo = mi + 1; //经比较后确定深入[lo, mi)或(mi, hi)
+    } //成功查找不能提前终止
+    return --lo; //循环结束时，lo为大于e的元素的最小秩，故lo - 1即不大于e的元素的最大秩
 }
 
 // 重载下标操作符，可以类似于数组形式引用各元素

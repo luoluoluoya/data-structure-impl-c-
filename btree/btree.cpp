@@ -105,24 +105,29 @@ void BTree<T>::solveUnderflow ( BTNodePosi(T) v ) {
 }
 
 //在B-树中查找关键码e
+//在当前节点中，找到不大于e的最大关键码； 成功：在当前节点中命中目标关键码，否则，转入对应子树（_hot指向其父）——需做I/O，最费时间
 template <typename T>
-BTNodePosi(T) BTree<T>::search(const T &e) {
-    BTNodePosi(T) x = _root; _hot = NULL;
-    while (x) {
-        Rank r = x->key.search(e);
-        if ( ( 0 <= r ) && ( e == x->key[r] ) ) break;
-        _hot = x; x = x->child[r+1];
+BTNodePosi(T) BTree<T>::search ( const T& e ) {
+    BTNodePosi(T) v = _root; _hot = NULL; //从根节点出发
+    while ( v ) {    //逐层查找
+        Rank r = v->key.search ( e );
+        if ( ( 0 <= r ) && ( e == v->key[r] ) ) return v;
+        _hot = v; v = v->child[r + 1];
     }
-    return x;
+    return NULL; //失败：最终抵达外部节点
 }
 
 //将关键码e插入B树中
-template <typename T> bool BTree<T>::insert( const T& e ) {
-    BTNodePosi(T) x = search(e); if (x) return false;
-    Rank r = _hot->key.search(e);
-    _hot->key.insert(r + 1, e); _hot->child.insert(r+2, NULL); _size++;
-    solveOverflow(_hot);
-    return true;
+//确认目标节点不存在,并在节点_hot的有序关键码向量中查找合适的插入位置； 将新关键码插至对应的位置并为其创建一个空子树指针， 如有必要，需做分裂
+template <typename T>
+bool BTree<T>::insert ( const T& e ) {
+    BTNodePosi(T) v = search ( e ); if ( v ) return false;
+    Rank r = _hot->key.search ( e );
+    _hot->key.insert ( r + 1, e );
+    _hot->child.insert ( r + 2, NULL );
+    _size++;    //更新全树规模
+    solveOverflow ( _hot );
+    return true; //插入成功
 }
 
 //从BTree树中删除关键码e
