@@ -20,7 +20,7 @@
  */
 template<typename T>
 struct BTNode {
-    // 成员（为简化描述起见统一开放，读者可根据需要进一步封装）
+    // 成员
     BTNodePosi(T)parent;            //父节点
     Vector<T> key;                  //关键码向量
     Vector<BTNodePosi(T)> child;    //孩子向量（其长度总比key多一）
