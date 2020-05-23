@@ -1,5 +1,5 @@
 //
-// Created by ÕÅÈñ on 2020/5/19.
+// Created by å¼ é” on 2020/5/19.
 //
 
 #include "binnode_macro.h"
@@ -7,7 +7,7 @@
 #include "../stack/stack.h"
 
 
-//Í³¼Æµ±Ç°½Úµãºó´ú×ÜÊı£¬Òà¼´ÒÔÆäÎª¸ùµÄ×ÓÊ÷µÄ¹æÄ£
+//ç»Ÿè®¡å½“å‰èŠ‚ç‚¹åä»£æ€»æ•°ï¼Œäº¦å³ä»¥å…¶ä¸ºæ ¹çš„å­æ ‘çš„è§„æ¨¡
 template<typename T>
 int BinNode<T>::size() {
     int n = 1;
@@ -16,21 +16,21 @@ int BinNode<T>::size() {
     return n;
 }
 
-//×÷Îªµ±Ç°½ÚµãµÄ×óº¢×Ó²åÈëĞÂ½Úµã
-// Ç°ÖÃÌõ¼ş£º×óº¢×Ó²»´æÔÚ
+//ä½œä¸ºå½“å‰èŠ‚ç‚¹çš„å·¦å­©å­æ’å…¥æ–°èŠ‚ç‚¹
+// å‰ç½®æ¡ä»¶ï¼šå·¦å­©å­ä¸å­˜åœ¨
 template<typename T>
 BinNodePosi(T) BinNode<T>::insertAsLC(T const &e) {
     return lc = new BinNode<T>(e, this);
 }
 
-//×÷Îªµ±Ç°½ÚµãµÄÓÒº¢×Ó²åÈëĞÂ½Úµã
-// Ç°ÖÃÌõ¼ş£ºÓÒº¢×Ó²»´æÔÚ
+//ä½œä¸ºå½“å‰èŠ‚ç‚¹çš„å³å­©å­æ’å…¥æ–°èŠ‚ç‚¹
+// å‰ç½®æ¡ä»¶ï¼šå³å­©å­ä¸å­˜åœ¨
 template<typename T>
 BinNodePosi(T) BinNode<T>::insertAsRC(T const &e) {
     return rc = new BinNode<T>(e, this);
 }
 
-//È¡µ±Ç°½ÚµãµÄÖ±½Óºó¼Ì
+//å–å½“å‰èŠ‚ç‚¹çš„ç›´æ¥åç»§
 template<typename T>
 BinNodePosi(T) BinNode<T>::succ() {
     BinNodePosi(T) succ = this;
@@ -44,8 +44,8 @@ BinNodePosi(T) BinNode<T>::succ() {
     return succ;
 }
 
-/**½Úµã±éÀúËã·¨**/
-//×ÓÊ÷²ã´Î±éÀúÍ³Ò»Èë¿Ú
+/**èŠ‚ç‚¹éå†ç®—æ³•**/
+//å­æ ‘å±‚æ¬¡éå†ç»Ÿä¸€å…¥å£
 template<typename T>
 template<typename VST>void BinNode<T>::travLevel(VST &visit) {
     Queue<BinNodePosi(T)> Q;
@@ -53,23 +53,24 @@ template<typename VST>void BinNode<T>::travLevel(VST &visit) {
     while (!Q.empty()) {
         BinNodePosi(T) x = Q.dequeue();
         visit(x->data);
+        printf("(height:%d)", x->height);
         if ( HasLChild(*x) ) Q.enqueue(x->lc);
         if ( HasRChild(*x) ) Q.enqueue(x->rc);
     }
 }
 
-//×ÓÊ÷ÏÈĞò±éÀúÍ³Ò»Èë¿Ú
+//å­æ ‘å…ˆåºéå†ç»Ÿä¸€å…¥å£
 template<typename T>
 template<typename VST>
 void BinNode<T>::travPre(VST &visit) {
     switch ( rand() % 3 ) {
-        case 0:     travPreI1 ( this, visit ); break; //µü´ú°æ#1
-        case 1:     travPreI2 ( this, visit ); break; //µü´ú°æ#2
-        default:     travPreR ( this, visit ); break; //µİ¹é°æ
+        case 0:     travPreI1 ( this, visit ); break; //è¿­ä»£ç‰ˆ#1
+        case 1:     travPreI2 ( this, visit ); break; //è¿­ä»£ç‰ˆ#2
+        default:     travPreR ( this, visit ); break; //é€’å½’ç‰ˆ
     }
 }
 
-// ×ÓÊ÷ÏÈĞò±éÀúµİ¹é°æ
+// å­æ ‘å…ˆåºéå†é€’å½’ç‰ˆ
 template<typename T, typename VST>
 static void travPreI1(BinNodePosi(T)p, VST &visit) {
     Stack<BinNodePosi(T)> S;
@@ -82,7 +83,7 @@ static void travPreI1(BinNodePosi(T)p, VST &visit) {
     }
 }
 
-// ×ÓÊ÷ÏÈĞò±éÀúµİ¹é°æ
+// å­æ ‘å…ˆåºéå†é€’å½’ç‰ˆ
 template<typename T, typename VST>
 static void travPreI2(BinNodePosi(T)p, VST &visit) {
     Stack<BinNodePosi(T)> S;
@@ -97,7 +98,7 @@ static void travPreI2(BinNodePosi(T)p, VST &visit) {
     }
 }
 
-// ×ÓÊ÷ÏÈĞò±éÀúµİ¹é°æ
+// å­æ ‘å…ˆåºéå†é€’å½’ç‰ˆ
 template<typename T, typename VST>
 static void travPreR(BinNodePosi(T)p, VST &visit) {
     visit(p->data);
@@ -105,19 +106,19 @@ static void travPreR(BinNodePosi(T)p, VST &visit) {
     if ( HasLChild(*p) )    travPreR(p->rc, visit);
 }
 
-//×ÓÊ÷ÖĞĞò±éÀúÍ³Ò»Èë¿Ú
+//å­æ ‘ä¸­åºéå†ç»Ÿä¸€å…¥å£
 template<typename T>
 template<typename VST>void BinNode<T>::travIn(VST &visit) {
     switch ( rand() % 5 ) {
-        case 1: travInI1 ( this, visit ); break; //µü´ú°æ#1
-        case 2: travInI2 ( this, visit ); break; //µü´ú°æ#2
-        case 3: travInI3 ( this, visit ); break; //µü´ú°æ#3
-        case 4: travInI4 ( this, visit ); break; //µü´ú°æ#4
-        default: travInR ( this, visit ); break; //µİ¹é°æ
+        case 1: travInI1 ( this, visit ); break; //è¿­ä»£ç‰ˆ#1
+        case 2: travInI2 ( this, visit ); break; //è¿­ä»£ç‰ˆ#2
+        case 3: travInI3 ( this, visit ); break; //è¿­ä»£ç‰ˆ#3
+        case 4: travInI4 ( this, visit ); break; //è¿­ä»£ç‰ˆ#4
+        default: travInR ( this, visit ); break; //é€’å½’ç‰ˆ
     }
 }
 
-//×ÓÊ÷ÖĞĞò±éÀúµü´ú°æ
+//å­æ ‘ä¸­åºéå†è¿­ä»£ç‰ˆ
 template<typename T, typename VST>
 static void travInI1(BinNodePosi(T)p, VST &visit) {
     Stack<BinNodePosi(T)> S;
@@ -133,7 +134,7 @@ static void travInI1(BinNodePosi(T)p, VST &visit) {
     }
 }
 
-//×ÓÊ÷ÖĞĞò±éÀúµü´ú°æ
+//å­æ ‘ä¸­åºéå†è¿­ä»£ç‰ˆ
 template<typename T, typename VST>
 static void travInI2(BinNodePosi(T)p, VST &visit) {
     Stack<BinNodePosi(T)> S;
@@ -151,7 +152,7 @@ static void travInI2(BinNodePosi(T)p, VST &visit) {
     }
 }
 
-//×ÓÊ÷ÖĞĞò±éÀúµü´ú°æ
+//å­æ ‘ä¸­åºéå†è¿­ä»£ç‰ˆ
 template<typename T, typename VST>
 static void travInI3(BinNodePosi(T)p, VST &visit) {
     bool backtrack = false;
@@ -169,7 +170,7 @@ static void travInI3(BinNodePosi(T)p, VST &visit) {
     }
 }
 
-//×ÓÊ÷ÖĞĞò±éÀúµü´ú°æ
+//å­æ ‘ä¸­åºéå†è¿­ä»£ç‰ˆ
 template<typename T, typename VST>
 static void travInI4(BinNodePosi(T)p, VST &visit) {
     while (true) {
@@ -183,7 +184,7 @@ static void travInI4(BinNodePosi(T)p, VST &visit) {
     }
 }
 
-//×ÓÊ÷ÖĞĞò±éÀúµİ¹é
+//å­æ ‘ä¸­åºéå†é€’å½’
 template<typename T, typename VST>
 static void travInR(BinNodePosi(T)p, VST &visit) {
     if (!p) return;
@@ -192,23 +193,23 @@ static void travInR(BinNodePosi(T)p, VST &visit) {
     travInR(p->rc, visit);
 }
 
-//×ÓÊ÷ºóĞò±éÀúÍ³Ò»Èë¿Ú
+//å­æ ‘ååºéå†ç»Ÿä¸€å…¥å£
 template<typename T>
 template<typename VST>void BinNode<T>::travPost(VST &visit) {
     switch ( rand() % 2 ) {
-        case 1: travPostI ( this, visit ); break;  //µü´ú°æ
-        default: travPostR ( this, visit ); break; //µİ¹é°æ
+        case 1: travPostI ( this, visit ); break;  //è¿­ä»£ç‰ˆ
+        default: travPostR ( this, visit ); break; //é€’å½’ç‰ˆ
     }
 }
 
 
-//¶ş²æÊ÷µÄºóĞò±éÀú£¨µü´ú°æ£©
-// ÈôÕ»¶¥·Çµ±Ç°½ÚµãÖ®¸¸£¨Ôò±ØÎªÆäÓÒĞÖ£©£¬´ËÊ±ĞèÔÚÒÔÆäÓÒĞÖÎª¸ùÖ®×ÓÊ÷ÖĞ£¬ÕÒµ½HLVFL£¨Ïàµ±ÓÚµİ¹éÉîÈëÆäÖĞ£©µ¯³öÕ»¶¥£¨¼´Ç°Ò»½ÚµãÖ®ºó¼Ì£©£¬²¢·ÃÎÊÖ®
-// ×Ô¶¥¶øÏÂ£¬·´¸´¼ì²éµ±Ç°½Úµã£¨¼´Õ»¶¥£©¾¡¿ÉÄÜÏò×ó; ÈôÓĞÓÒº¢×Ó£¬ÓÅÏÈÈëÕ»È»ºó²Å×ªÖÁ×óº¢×Ó; Êµ²»µÃÒÑ²ÅÏòÓÒ,·µ»ØÖ®Ç°£¬µ¯³öÕ»¶¥µÄ¿Õ½Úµã
+//äºŒå‰æ ‘çš„ååºéå†ï¼ˆè¿­ä»£ç‰ˆï¼‰
+// è‹¥æ ˆé¡¶éå½“å‰èŠ‚ç‚¹ä¹‹çˆ¶ï¼ˆåˆ™å¿…ä¸ºå…¶å³å…„ï¼‰ï¼Œæ­¤æ—¶éœ€åœ¨ä»¥å…¶å³å…„ä¸ºæ ¹ä¹‹å­æ ‘ä¸­ï¼Œæ‰¾åˆ°HLVFLï¼ˆç›¸å½“äºé€’å½’æ·±å…¥å…¶ä¸­ï¼‰å¼¹å‡ºæ ˆé¡¶ï¼ˆå³å‰ä¸€èŠ‚ç‚¹ä¹‹åç»§ï¼‰ï¼Œå¹¶è®¿é—®ä¹‹
+// è‡ªé¡¶è€Œä¸‹ï¼Œåå¤æ£€æŸ¥å½“å‰èŠ‚ç‚¹ï¼ˆå³æ ˆé¡¶ï¼‰å°½å¯èƒ½å‘å·¦; è‹¥æœ‰å³å­©å­ï¼Œä¼˜å…ˆå…¥æ ˆç„¶åæ‰è½¬è‡³å·¦å­©å­; å®ä¸å¾—å·²æ‰å‘å³,è¿”å›ä¹‹å‰ï¼Œå¼¹å‡ºæ ˆé¡¶çš„ç©ºèŠ‚ç‚¹
 template <typename T, typename VST>
 void travPostI (BinNodePosi(T) x, VST& visit) {
-    Stack<BinNodePosi(T)> S; //¸¨ÖúÕ»
-    if ( x ) S.push ( x ); //¸ù½ÚµãÈëÕ»
+    Stack<BinNodePosi(T)> S; //è¾…åŠ©æ ˆ
+    if ( x ) S.push ( x ); //æ ¹èŠ‚ç‚¹å…¥æ ˆ
     while ( !S.empty() ) {
         if ( S.top() != x->parent ) {
             while ( BinNodePosi(T) x = S.top() ) {
@@ -225,7 +226,7 @@ void travPostI (BinNodePosi(T) x, VST& visit) {
     }
 }
 
-//×ÓÊ÷ºóĞò±éÀúµİ¹é°æ
+//å­æ ‘ååºéå†é€’å½’ç‰ˆ
 template<typename T, typename VST>
 static void travPostR(BinNodePosi(T)p, VST &visit) {
     if (!p) return;
@@ -235,8 +236,8 @@ static void travPostR(BinNodePosi(T)p, VST &visit) {
 }
 
 
-/**Ğı×ª²Ù×÷**/
-//Ë³Ê±ÕëĞı×ª
+/**æ—‹è½¬æ“ä½œ**/
+//é¡ºæ—¶é’ˆæ—‹è½¬
 template<typename T>
 BinNodePosi(T) BinNode<T>::zig() {
     BinNodePosi(T) lChild = lc;
@@ -249,7 +250,7 @@ BinNodePosi(T) BinNode<T>::zig() {
     return lChild;
 }
 
-//ÄæÊ±ÕëĞı×ª
+//é€†æ—¶é’ˆæ—‹è½¬
 template<typename T>
 BinNodePosi(T) BinNode<T>::zag() {
     BinNodePosi(T) rChild = rc;
