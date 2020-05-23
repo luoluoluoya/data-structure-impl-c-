@@ -20,7 +20,7 @@ void RedBlack<T>::solveDoubleRed(BinNodePosi(T)x) {
             x->color = RB_BLACK;
         g->color = RB_RED; //g必定由黑转红
         BinNodePosi(T)gg = g->parent; //曾祖父（great-grand parent）
-        BinNodePosi(T)r = FromParentTo (*g) = rotateAt(x); //调整后的子树根节点
+        BinNodePosi(T)r = FromParentTo (*g) = this->rotateAt(x); //调整后的子树根节点
         r->parent = gg; //与原曾祖父联接
     } else { //RR-2
         p->color = RB_BLACK;
@@ -53,7 +53,7 @@ template <typename T> void RedBlack<T>::solveDoubleBlack ( BinNodePosi(T) r ) {
             //备份原子树根节点p颜色，并对t及其父亲、祖父
             RBColor oldColor = p->color;
             // 以下，通过旋转重平衡，并将新子树的左、右孩子染黑
-            BinNodePosi(T) b = FromParentTo ( *p ) = rotateAt ( t ); //旋转
+            BinNodePosi(T) b = FromParentTo ( *p ) = this->rotateAt ( t ); //旋转
             if ( HasLChild ( *b ) ) { b->lc->color = RB_BLACK; updateHeight ( b->lc ); } //左子
             if ( HasRChild ( *b ) ) { b->rc->color = RB_BLACK; updateHeight ( b->rc ); } //右子
             b->color = oldColor; updateHeight ( b ); //新子树根节点继承原根节点的颜色
@@ -69,7 +69,7 @@ template <typename T> void RedBlack<T>::solveDoubleBlack ( BinNodePosi(T) r ) {
     } else { //兄弟s为红：BB-3
         s->color = RB_BLACK; p->color = RB_RED;                    //s转黑，p转红
         BinNodePosi(T) t = IsLChild ( *s ) ? s->lc : s->rc;     //取t与其父s同侧
-        this->_hot = p; FromParentTo ( *p ) = rotateAt ( t );   //对t及其父亲、祖父做平衡调整
+        this->_hot = p; FromParentTo ( *p ) = this->rotateAt ( t );   //对t及其父亲、祖父做平衡调整
         solveDoubleBlack ( r ); //继续修正r处双黑——此时的p已转红，故后续只能是BB-1或BB-2R
     }
 }
@@ -95,7 +95,7 @@ BinNodePosi(T)RedBlack<T>::insert(const T &e) {
 template <typename T>
 bool RedBlack<T>::remove ( const T& e ) {
     BinNodePosi(T) & x = this->search ( e ); if ( !x ) return false;
-    BinNodePosi(T) r = this->removeAt ( x, this->_hot ); if ( ! ( --this->_size ) ) return true;
+    BinNodePosi(T) r = removeAt ( x, this->_hot ); if ( ! ( --this->_size ) ) return true;
     //_hot某一孩子刚被删除，且被r所指节点（可能是NULL）接替。以下检查是否失衡，并做必要调整
     //若刚被删除的是根节点，则将其置黑，并更新黑高度
     if ( ! this->_hot ) { this->_root->color = RB_BLACK; updateHeight ( this->_root ); return true; }

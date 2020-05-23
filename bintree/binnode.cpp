@@ -53,7 +53,7 @@ template<typename VST>void BinNode<T>::travLevel(VST &visit) {
     while (!Q.empty()) {
         BinNodePosi(T) x = Q.dequeue();
         visit(x->data);
-        printf("(height:%d)", x->height);
+        printf("(color:%d, height:%d)", x->color == RB_BLACK ? 1: 0, x->height);
         if ( HasLChild(*x) ) Q.enqueue(x->lc);
         if ( HasRChild(*x) ) Q.enqueue(x->rc);
     }

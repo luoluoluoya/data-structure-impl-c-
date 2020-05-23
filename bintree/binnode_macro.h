@@ -19,7 +19,7 @@
 /**与BinNode具有特定关系的节点及指针**/
 #define sibling(x)      ( IsRoot( *(x) ) ? NULL : ( IsLChild( *(x) ) ? (x)->parent->rc : (x)->parent->lc ) )
 #define uncle(x)        ( IsRoot( *(x) ) ? NULL : sibling(x->parent) )
-#define FromParentTo(x) ( IsRoot(x) ? this->_root : ( IsLChild(x) ? (x).parent->lc : (x).parent->rc ) )
+#define FromParentTo(x) ( IsRoot(x) ? this->_root : ( IsLChild(x) ? (x).parent->lc : (x).parent->rc ) ) /*来自父亲的引用*/
 
 
 /**红黑树宏定义**/
