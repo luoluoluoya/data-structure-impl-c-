@@ -11,11 +11,11 @@ typedef int Rank;
 
 template<typename T>
 class Vector {
-private:
+protected:
     Rank _size;
     int _capacity;
     T *_elem; //规模、容量、数据区
-protected:
+
     //复制数组区间A[lo, hi)
     void copyFrom(T const *A, Rank lo, Rank hi);
 
