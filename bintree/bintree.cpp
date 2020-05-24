@@ -2,6 +2,7 @@
 // Created by 张锐 on 2020/5/19.
 //
 
+#include <cmath>
 #include "../share/tool.h"
 
 //更新节点x高度

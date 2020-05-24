@@ -10,8 +10,3 @@ void swap(T &s, T &d) {
     d = t;
 }
 
-// 获取较大值， 相等时返回后者
-template<typename T>
-T max(T f, T s) {
-    return f <= s ? s : f;
-}
