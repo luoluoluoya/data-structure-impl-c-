@@ -1,5 +1,5 @@
 //
-// Created by ÕÅÈñ on 2020/5/21.
+// Created by ï¿½ï¿½ï¿½ï¿½ on 2020/5/21.
 //
 
 #pragma once
@@ -7,17 +7,16 @@
 #include "../bst/bst.h"
 
 /**
- * ÓÉBSTÅÉÉúAVLÊ÷Ä£°åÀà
+ * ï¿½ï¿½BSTï¿½ï¿½ï¿½ï¿½AVLï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½
  *      AVL
  * @tparam T
  */
 template<typename T>
 class AVL : public BST<T> {
 public:
-    //²åÈë£¨ÖØĞ´£©
+
     BinNodePosi(T)insert(const T &e);
 
-    //É¾³ı£¨ÖØĞ´£©
     bool remove(const T &e);
 };
 
